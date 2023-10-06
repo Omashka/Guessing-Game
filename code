@@ -1,0 +1,152 @@
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+using namespace std;
+
+//variables 
+string guessName, attempts, userName, name, nameCheck;
+int choice, i  ;
+ofstream outputFile,outName;
+ifstream inFile, inName, inCheck;
+string win;
+
+//guesses functions
+string getNames() 
+{
+  cout << "\n\nNow To Start The Game!" << endl; 
+outputFile.open("attempts.txt");
+cin.ignore() ; 
+ do
+  {
+    cout << "\nPlease Enter Guess Number " <<  (i+1) << ": " ; 
+    getline(cin, guessName) ;  
+    outputFile << guessName << endl;
+ inCheck.open("name.txt") ; 
+    while(getline(inCheck,nameCheck))
+      {
+        if(guessName == nameCheck)
+        {
+          cout << "\nYour Guess Is Correct!" ; 
+        } 
+      }
+  inCheck.close() ;
+    i++ ; 
+  }while(i < 10) ; 
+ outputFile.close();
+ 
+  return guessName ; 
+  }
+
+//writing the user name to file
+string getNameToPutiWins()
+{
+  outName.open("alltimewins.txt") ; 
+  cout << "First Please Enter Your Name: " ; 
+    getline(cin, name) ; 
+  outName << name << endl ; 
+  outName.close() ; 
+  return name ; 
+}
+
+//Viewing the win
+string viewWins()
+{
+  inName.open("alltimewins.txt") ; 
+  while (getline(inName, name))
+  {
+    cout << "Your All Time Wins Are : " << name <<  endl;  
+  }
+
+ inName.close() ; 
+  return name ; 
+}
+
+
+//game menu fucntion
+void gameMenu()
+{ 
+  cout << string(22,'-') << endl; 
+  cout << "| THE GUESSING GAME!!! |" << endl ; 
+  cout << string(22,'-') << endl; 
+  cout << "\n\nStart New Game(1): " ; 
+  cout << "\nQuit Playing(2): " ; 
+  cout << "\nView Attempts(3): " ; 
+  cout << "\nView All Time Wins(4): " ; 
+}
+
+//reading names guessed from a file
+string viewAttempts()
+{
+  inFile.open("attempts.txt") ;
+  while (getline( inFile, attempts )) 
+     {
+       cout << "The Names You Have Enetered Are As Follows: " << attempts <<endl; 
+     }
+  inFile.close();
+return attempts ;  
+}
+
+
+
+
+
+//starting here
+int main()
+{
+ 
+//game menu
+do
+{
+   gameMenu() ; 
+  cout << "\n\nPlease Enter Your Choice : " ;
+    cin >> choice; 
+
+
+    switch(choice) 
+  {
+    
+    //game intro
+    case 1: 
+    {
+      cout << "\nHello, Welcome To The Sesame Street Guessing Game." ;
+      cout << "\nIn This Game You Will Try To Guess Some Of My Friends Names!" ;
+      cout <<"\nYou Will Have 10 Attempts To Guess, Goodluck!" ;
+      cout << "\nAfter Guessing 10 Names You Will be Greeted With A Menu, Choose An Option!" ; 
+      getNames() ; 
+      break; 
+       
+    }
+    case 2: 
+    {
+      system("clear") ; 
+      cout << "Thank you, till next timeeeeeee.....!!!" ; 
+      break ; 
+    }
+    case 3 : 
+    {
+      system("clear") ; 
+      cout << "The Guesses You Have Entered Are As Follows: \n" << endl; 
+      viewAttempts() ;
+      break ; 
+      
+    }
+    case 4 : 
+    { 
+      system("clear") ; 
+      cin.ignore() ; 
+      getNameToPutiWins() ; 
+      viewWins() ; 
+      break ; 
+    }
+
+  }
+
+}while(choice != 2) ; 
+
+  
+  
+  return 0 ; 
+  }
+  
